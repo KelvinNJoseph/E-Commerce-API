@@ -4,7 +4,8 @@ export enum ErrorCodes{
     USER_NOT_FOUND = 1001,
     USER_ALREADY_EXISTS = 1002,
     INVALID_PASSWORD = 1003,
-    UNPROCESSABLE_ENTITY = 1004
+    UNPROCESSABLE_ENTITY = 1004,
+    INTERNAL_EXCEPTION = 1005
 }
 export class HttpException extends Error {
     message: string;
