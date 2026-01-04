@@ -1,4 +1,4 @@
-import type { NextFunction, Request, Response } from "express";
+import type { Request, Response } from "express";
 import { prismaClient } from "../index.js";
 import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -9,7 +9,7 @@ import { UnprocessableEntity } from "../exceptions/validation.js";
 import { SignUpSchema } from "../schemas/users.js";
 import { NotFoundException } from "../exceptions/not-found.js";
 
-export const signup = async (req: Request, res:Response , next: NextFunction) => {
+export const signup = async (req: Request, res:Response ) => {
     SignUpSchema.parse(req.body);
     const { email, password, name } = req.body;
     let user = await prismaClient.user.findFirst({ where: { email } });
