@@ -1,9 +1,16 @@
-import type { NextFunction, Request, Response } from "express"
+import type { NextFunction, Request, Response, RequestHandler } from "express"
 import { ErrorCodes, HttpException } from "./exceptions/root.js"
 import { InternalException } from "./exceptions/internal-exception.js"
 
-export const errorHandler = (method: Function) => {
-    return async(req: Request, res: Response, next: NextFunction) => {
+// Handler type that accepts our extended Request (with user property)
+type AsyncRequestHandler = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => Promise<void> | void;
+
+export const errorHandler = (method: AsyncRequestHandler): RequestHandler => {
+    return (async(req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
             await method(req, res, next)
         } catch (error: any) {
@@ -15,5 +22,5 @@ export const errorHandler = (method: Function) => {
            }
                 next(exception);
         }
-    }
+    }) as RequestHandler;
 }

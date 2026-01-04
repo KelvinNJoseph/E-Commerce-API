@@ -14,7 +14,7 @@ export const signup = async (req: Request, res:Response , next: NextFunction) =>
     const { email, password, name } = req.body;
     let user = await prismaClient.user.findFirst({ where: { email } });
     if (user) {
-      new BadRequestException("User already exists!", ErrorCodes.USER_ALREADY_EXISTS);
+     throw new BadRequestException("User already exists!", ErrorCodes.USER_ALREADY_EXISTS);
     }
     user = await prismaClient.user.create({
       data: {
@@ -40,3 +40,8 @@ export const login = async (req: Request, res: Response) => {
   });
   res.json({ user, token });
 };
+
+export const me = async (req: Request, res: Response) => {
+  res.json(req.user);
+};
+
