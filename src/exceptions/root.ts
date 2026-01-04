@@ -6,7 +6,8 @@ export enum ErrorCodes{
     INVALID_PASSWORD = 1003,
     UNPROCESSABLE_ENTITY = 1004,
     INTERNAL_EXCEPTION = 1005,
-    UNAUTHORIZED_EXCEPTION = 1006
+    UNAUTHORIZED_EXCEPTION = 1006,
+    PRODUCT_NOT_FOUND= 2001
 }
 export class HttpException extends Error {
     message: string;
