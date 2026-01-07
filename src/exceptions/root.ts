@@ -10,7 +10,8 @@ export enum ErrorCodes {
   PRODUCT_NOT_FOUND = 2001,
   ADDRESS_NOT_FOUND = 3001,
   ADDRESS_DOES_NOT_BELONG_TO_USER=3002,
-  CART_EMPTY=4000
+  CART_EMPTY=4001,
+  ORDER_NOT_FOUND=5001
 }
 export class HttpException extends Error {
     message: string;
