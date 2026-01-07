@@ -67,3 +67,25 @@ export const getProductById = async (req: Request, res: Response) => {
           );
     }
 }
+
+export const searchProducts = async (req: Request, res: Response) => {
+    //TODO Implement pagination 
+  const q = req.query.q?.toString();
+
+  if (!q) {
+    res.status(400).json({ message: "Search query is required" });
+    return;
+  }
+
+  const products = await prismaClient.product.findMany({
+    where: {
+      OR: [
+        { name: { search: q } },
+        { description: { search: q } },
+        { tags: { search: q } },
+      ],
+    },
+  });
+
+  res.json(products);
+};
